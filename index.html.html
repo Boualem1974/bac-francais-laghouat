@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAC Français Master Pro - Laghouat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-shadow { box-shadow: none !important; border: 1px solid #ccc !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-900">
+
+    <!-- En-tête Institutionnel -->
+    <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-500 text-slate-950 font-bold p-2.5 rounded-xl shadow-inner text-lg">
+                    📚 3AS
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                        BAC Français Master <span class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full font-medium">Pro</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Prof. <span class="text-amber-300 font-semibold">ARAREM Boualem</span> | Lycée 1er Novembre 1954 - LAGHOUAT</p>
+                </div>
+            </div>
+
+            <!-- Sélecteur de Filière Dynamique -->
+            <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700 no-print">
+                <label for="filiere-select" class="text-xs font-medium text-slate-300">Filière :</label>
+                <select id="filiere-select" onchange="changerFiliere()" class="bg-slate-800 text-amber-400 text-xs font-bold rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-amber-500 border border-slate-600">
+                    <option value="lettres">Lettres & Philosophie (Coeff 3 - 3h30)</option>
+                    <option value="langues">Langues Étrangères (Coeff 5 - 3h30)</option>
+                    <option value="sciences" selected>Sciences & Techniques (Coeff 2 - 2h30)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Navigation par onglets -->
+        <nav class="bg-slate-850 border-t border-slate-750 max-w-7xl mx-auto px-4 flex overflow-x-auto no-scrollbar py-2 gap-2">
+            <button onclick="switchTab('accueil')" id="btn-accueil" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow">🏠 Tableau de Bord</button>
+            <button onclick="switchTab('fiches')" id="btn-fiches" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">📖 Fiches & Modèles</button>
+            <button onclick="switchTab('glossaire')" id="btn-glossaire" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">🗣️ Glossaire Bilingue FR/AR</button>
+            <button onclick="switchTab('langue')" id="btn-langue" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">✍️ Fonctionnement de la Langue</button>
+            <button onclick="switchTab('simulateur')" id="btn-simulateur" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">⏱️ Simulateur & Quiz</button>
+            <button onclick="switchTab('evaluation')" id="btn-evaluation" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">🎯 Auto-Évaluation Écrit</button>
+            <button onclick="switchTab('notes')" id="btn-notes" class="tab-btn px-4 py-2 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">📝 Mes Notes</button>
+        </nav>
+    </header>
+
+    <!-- Corps Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- ONGLET 1 : ACCUEIL -->
+        <section id="tab-accueil" class="space-y-6 tab-content">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-850 p-6 rounded-2xl border border-slate-700 shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="space-y-3">
+                    <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1 rounded-full font-semibold">Session BAC Officielle</span>
+                    <h2 class="text-2xl font-bold text-white">Bienvenue sur votre espace de réussite, Chers Élèves !</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed max-w-2xl">
+                        Conçu spécialement pour vous accompagner dans la maîtrise des épreuves de français. Retrouvez ici des cours structurés, des glossaires bilingues anti-blocage, des fiches méthodologiques, des exercices de langue interactifs et des outils d'auto-évaluation.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('fiches')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow">Commencer les révisions</button>
+                        <button onclick="switchTab('simulateur')" class="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-4 py-2 rounded-xl text-xs transition border border-slate-600">Lancer un Quiz Chronométré</button>
+                    </div>
+                </div>
+                <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 w-full md:w-80 shadow-inner space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400">Paramètres Actuels</h3>
+                    <div id="info-filiere-card" class="text-xs space-y-2 text-slate-300">
+                        <p><strong>Filière :</strong> <span id="card-filiere-nom" class="text-white">Sciences & Techniques</span></p>
+                        <p><strong>Coefficient BAC :</strong> <span id="card-filiere-coeff" class="text-amber-300 font-bold">2</span></p>
+                        <p><strong>Durée Épreuve :</strong> <span id="card-filiere-duree" class="text-white">2h30</span></p>
+                    </div>
+                    <hr class="border-slate-700">
+                    <button onclick="window.print()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-lg text-xs font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
+                        🖨️ Imprimer la page / Exporter PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grille d'accès rapide -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div onclick="switchTab('fiches')" class="bg-slate-800/80 hover:bg-slate-800 p-5 rounded-xl border border-slate-700 cursor-pointer transition group shadow">
+                    <div class="text-2xl mb-2">📜</div>
+                    <h3 class="font-bold text-white group-hover:text-amber-400 transition text-sm">Objets d'Étude & Comptes Rendus</h3>
+                    <p class="text-xs text-slate-400 mt-1">Récit historique, Débat d'idées et L'appel avec squelettes réutilisables.</p>
+                </div>
+                <div onclick="switchTab('glossaire')" class="bg-slate-800/80 hover:bg-slate-800 p-5 rounded-xl border border-slate-700 cursor-pointer transition group shadow">
+                    <div class="text-2xl mb-2">💡</div>
+                    <h3 class="font-bold text-white group-hover:text-amber-400 transition text-sm">Glossaire Bilingue Anti-Blocage</h3>
+                    <p class="text-xs text-slate-400 mt-1">Traductions arabe/français des consignes et termes du BAC.</p>
+                </div>
+                <div onclick="switchTab('langue')" class="bg-slate-800/80 hover:bg-slate-800 p-5 rounded-xl border border-slate-700 cursor-pointer transition group shadow">
+                    <div class="text-2xl mb-2">⚙️</div>
+                    <h3 class="font-bold text-white group-hover:text-amber-400 transition text-sm">Fonctionnement de la Langue</h3>
+                    <p class="text-xs text-slate-400 mt-1">Voix active/passive, discours rapporté, modalisation et connecteurs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET 2 : FICHES ET MODELES -->
+        <section id="tab-fiches" class="space-y-6 tab-content hidden">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">📖 Fiches Méthodologiques & Modèles de Compte Rendu</h2>
+                <button onclick="imprimerSection('fiches-content')" class="no-print bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg border border-slate-600 text-amber-300">🖨️ Imprimer ces fiches</button>
+            </div>
+
+            <div id="fiches-content" class="space-y-6">
+                <!-- Objet d'étude 1 -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-amber-400">1. Le Récit Historique</h3>
+                        <span class="text-xs bg-slate-900 px-2.5 py-1 rounded border border-slate-700 text-slate-300">Histoire & Mémoire</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-3">Texte centré sur des faits du passé (ex: Guerre d'Algérie), témoignant d'événements vécus avec un objectif de transmission mémorielle.</p>
+                    <div class="bg-slate-900/80 p-4 rounded-lg border border-slate-700 text-xs space-y-2">
+                        <p class="font-bold text-amber-300">Modèle de Compte Rendu (Objectif) :</p>
+                        <p class="text-slate-300 italic">
+                            « Le texte extrait de <span class="text-amber-200">[Titre de l'œuvre / Auteur]</span>, relate des événements historiques liés à <span class="text-amber-200">[Thème]</span>. Dans ce passage, l'auteur <span class="text-amber-200">[témoigne de / met en lumière / relate]</span> les souffrances endurées par <span class="text-amber-200">[Acteurs]</span>. Pour ce faire, il adopte une posture objective en employant des faits précis et des indicateurs temporels rigoureux. L'objectif visé est de perpétuer le devoir de mémoire et de dénoncer les exactions commises. »
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Objet d'étude 2 -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-amber-400">2. Le Débat d'Idées</h3>
+                        <span class="text-xs bg-slate-900 px-2.5 py-1 rounded border border-slate-700 text-slate-300">Argumentation</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-3">Texte polémique ou argumentatif où l'auteur confronte des points de vue opposés (thèse vs antithèse) sur un sujet de société.</p>
+                    <div class="bg-slate-900/80 p-4 rounded-lg border border-slate-700 text-xs space-y-2">
+                        <p class="font-bold text-amber-300">Modèle de Compte Rendu (Synthèse / Critique) :</p>
+                        <p class="text-slate-300 italic">
+                            « Dans cet extrait tiré de <span class="text-amber-200">[Référence]</span>, l'auteur aborde la question de <span class="text-amber-200">[Problématique]</span>. Il soutient d'emblée que <span class="text-amber-200">[Thèse de l'auteur]</span> en s'appuyant sur des arguments solides. Après avoir examiné les objections des détracteurs, il conclut en incitant le lecteur à <span class="text-amber-200">[Visée communicative]</span>. »
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Objet d'étude 3 -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-amber-400">3. L'Appel</h3>
+                        <span class="text-xs bg-slate-900 px-2.5 py-1 rounded border border-slate-700 text-slate-300">Injonction & Solidarité</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-3">Texte caractérisé par une situation alarmante, un émetteur engagé et un destinataire interpellé directement pour agir.</p>
+                    <div class="bg-slate-900/80 p-4 rounded-lg border border-slate-700 text-xs space-y-2">
+                        <p class="font-bold text-amber-300">Modèle de Compte Rendu (Appel) :</p>
+                        <p class="text-slate-300 italic">
+                            « Face à une situation critique de <span class="text-amber-200">[Problème: environnement, solidarité, paix]</span>, l'auteur lance un appel vibrant dans <span class="text-amber-200">[Référence]</span>. S'adressant directement à la conscience collective, il dresse un constat alarmant avant d'exhorter les citoyens à se mobiliser d'urgence pour <span class="text-amber-200">[Action attendue]</span>. »
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET 3 : GLOSSAIRE BILINGUE -->
+        <section id="tab-glossaire" class="space-y-6 tab-content hidden">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">🗣️ Glossaire Lexical Bilingue (Français / Arabe)</h2>
+            <p class="text-xs text-slate-300">Outil anti-blocage conçu pour traduire et s'approprier les concepts clés des sujets de BAC et des types de textes étudiés.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Consignes du BAC -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 pb-2 border-b border-slate-700">📌 Verbes de Consignes du BAC</h3>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Relever (أستخرج)</span> <span class="text-amber-300">Trouver dans le texte</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Justifier (أبرر / علل)</span> <span class="text-amber-300">Donner une preuve/citation</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Synthétiser (لخص / أكمل)</span> <span class="text-amber-300">Résumer l'essentiel</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Dénoncer (أدان / ندد)</span> <span class="text-amber-300">Condamner un fait</span></li>
+                        <li class="flex justify-between pb-1"><span>Exhorter (ححث / ناشد)</span> <span class="text-amber-300">Pousser à agir</span></li>
+                    </ul>
+                </div>
+
+                <!-- Récit Historique -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 pb-2 border-b border-slate-700">📜 Vocabulaire : Récit Historique</h3>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Témoignage (شهادة)</span> <span class="text-amber-300">Récit d'un témoin oculaire</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Commémoration (إحياء ذكرى)</span> <span class="text-amber-300">Célébration historique</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Exaction / Sévices (انتهاكات / تعذيب)</span> <span class="text-amber-300">Violences commises</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Belligérant (طرف محارب)</span> <span class="text-amber-300">Partie en guerre</span></li>
+                        <li class="flex justify-between pb-1"><span>Relater / Archiver (روى / أرخ)</span> <span class="text-amber-300">Raconter / Consigner</span></li>
+                    </ul>
+                </div>
+
+                <!-- Débat d'idées -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 pb-2 border-b border-slate-700">💡 Vocabulaire : Débat d'Idées</h3>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Thèse / Antithèse (أطروحة / مضادة)</span> <span class="text-amber-300">Points de vue opposés</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Réfuter / Contester (دحض / عارض)</span> <span class="text-amber-300">Prouver le faux</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Concéder (سلم بـ)</span> <span class="text-amber-300">Admettre partiellement</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Polémique (سجالي / مثير للجدل)</span> <span class="text-amber-300">Débat vif</span></li>
+                        <li class="flex justify-between pb-1"><span>Modalisateur (أدوات الرأي)</span> <span class="text-amber-300">Marque de subjectivité</span></li>
+                    </ul>
+                </div>
+
+                <!-- L'Appel -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 pb-2 border-b border-slate-700">📢 Vocabulaire : L'Appel</h3>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Situation alarmante (وضع حرج)</span> <span class="text-amber-300">Alerte critique</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Prise de conscience (توعية)</span> <span class="text-amber-300">Éveil des esprits</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Mobilisation (تعبئة)</span> <span class="text-amber-300">Rassemblement d'action</span></li>
+                        <li class="flex justify-between border-b border-slate-750 pb-1"><span>Destinateur / Destinataire (مرسل / إليه)</span> <span class="text-amber-300">Émetteur / Récepteur</span></li>
+                        <li class="flex justify-between pb-1"><span>Injonction (أمر / تحفيز)</span> <span class="text-amber-300">Caractère impératif</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET 4 : FONCTIONNEMENT DE LA LANGUE -->
+        <section id="tab-langue" class="space-y-6 tab-content hidden">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">⚙️ Maîtrise de la Langue & Grammaire du BAC</h2>
+            <p class="text-xs text-slate-300">Réviser les points grammaticaux incontournables qui reviennent chaque année dans les questions de langue.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Voix Active / Passive -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-3">
+                    <h3 class="text-sm font-bold text-amber-400">1. Voix Active et Voix Passive</h3>
+                    <p class="text-xs text-slate-300">Permet de mettre en relief l'objet ou de masquer l'agent (très fréquent dans le texte historique).</p>
+                    <div class="bg-slate-900 p-3 rounded text-xs space-y-1">
+                        <p class="text-emerald-400 font-bold">Active :</p>
+                        <p class="text-slate-300">« L'armée coloniale a commis des massacres. »</p>
+                        <p class="text-amber-400 font-bold pt-1">Passive :</p>
+                        <p class="text-slate-300">« Des massacres <span class="underline">ont été commis</span> par l'armée coloniale. »</p>
+                    </div>
+                </div>
+
+                <!-- Discours Rapporté -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-3">
+                    <h3 class="text-sm font-bold text-amber-400">2. Discours Direct / Indirect</h3>
+                    <p class="text-xs text-slate-300">Attention à la concordance des temps lorsque le verbe introducteur est au passé (ex: <span class="italic">il affirma que...</span>).</p>
+                    <div class="bg-slate-900 p-3 rounded text-xs space-y-1">
+                        <p class="text-emerald-400 font-bold">Direct :</p>
+                        <p class="text-slate-300">Il déclare : « Je défendrai cette cause demain. »</p>
+                        <p class="text-amber-400 font-bold pt-1">Indirect :</p>
+                        <p class="text-slate-300">Il déclarait qu'il <span class="underline">défendrait</span> cette cause <span class="underline">le lendemain</span>.</p>
+                    </div>
+                </div>
+
+                <!-- La Modalisation -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-3">
+                    <h3 class="text-sm font-bold text-amber-400">3. La Modalisation (Subjectivité)</h3>
+                    <p class="text-xs text-slate-300">Repérer comment l'auteur s'implique dans son texte (adverbes, verbes d'opinion, adjectifs qualificatifs).</p>
+                    <div class="bg-slate-900 p-3 rounded text-xs space-y-2">
+                        <p class="text-slate-300"><strong>Indices :</strong> <span class="text-amber-300">Il est évident que (certitude), hélas (émotion), selon moi (opinion).</span></p>
+                    </div>
+                </div>
+
+                <!-- Les Connecteurs Logiques -->
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-3">
+                    <h3 class="text-sm font-bold text-amber-400">4. Les Connecteurs Logiques</h3>
+                    <p class="text-xs text-slate-300">Indispensables pour structurer le compte rendu et le texte argumentatif.</p>
+                    <div class="bg-slate-900 p-3 rounded text-xs space-y-1">
+                        <p><strong>Cause :</strong> <span class="text-amber-300">Car, en effet, grâce à, sous prétexte que...</span></p>
+                        <p><strong>Conséquence :</strong> <span class="text-amber-300">Donc, par conséquent, si bien que...</span></p>
+                        <p><strong>Opposition :</strong> <span class="text-amber-300">Cependant, or, en revanche, bien que...</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET 5 : SIMULATEUR & QUIZ -->
+        <section id="tab-simulateur" class="space-y-6 tab-content hidden">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">⏱️ Simulateur d'Examen & Quiz Chronométré</h2>
+            <p class="text-xs text-slate-300">Testez vos connaissances en conditions réelles avec correction immédiate.</p>
+
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow space-y-4">
+                <div class="flex justify-between items-center bg-slate-900 p-4 rounded-lg border border-slate-700">
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Quiz Express - Grammaire & Compréhension</h3>
+                        <p class="text-xs text-slate-400">5 questions aléatoires du BAC</p>
+                    </div>
+                    <div id="chrono" class="text-amber-400 font-mono font-bold text-lg bg-slate-800 px-3 py-1 rounded border border-slate-600">15:00</div>
+                </div>
+
+                <div id="quiz-container" class="space-y-4 text-xs">
+                    <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-700 space-y-2">
+                        <p class="font-bold text-white">Question 1 : Quel est l'objectif principal d'un texte historique au BAC ?</p>
+                        <div class="space-y-1 pl-2">
+                            <label class="block cursor-pointer"><input type="radio" name="q1" value="wrong"> Raconter une fiction imaginaire</label>
+                            <label class="block cursor-pointer"><input type="radio" name="q1" value="correct"> Témoigner de faits réels et transmettre la mémoire</label>
+                            <label class="block cursor-pointer"><input type="radio" name="q1" value="wrong"> Convaincre d'acheter un produit</label>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-700 space-y-2">
+                        <p class="font-bold text-white">Question 2 : Dans la phrase « La vérité <span class="underline">fut cachée</span> par la censure », la voix est :</p>
+                        <div class="space-y-1 pl-2">
+                            <label class="block cursor-pointer"><input type="radio" name="q2" value="correct"> Passive</label>
+                            <label class="block cursor-pointer"><input type="radio" name="q2" value="wrong"> Active</label>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-700 space-y-2">
+                        <p class="font-bold text-white">Question 3 : Quel connecteur exprime l'opposition ?</p>
+                        <div class="space-y-1 pl-2">
+                            <label class="block cursor-pointer"><input type="radio" name="q3" value="wrong"> Par conséquent</label>
+                            <label class="block cursor-pointer"><input type="radio" name="q3" value="correct"> En revanche</label>
+                            <label class="block cursor-pointer"><input type="radio" name="q3" value="wrong"> En effet</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="corrigerQuiz()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-xl text-xs transition shadow">Valider mes réponses</button>
+                <div id="resultat-quiz" class="text-xs font-bold text-amber-300"></div>
+            </div>
+        </section>
+
+        <!-- ONGLET 6 : AUTO-EVALUATION PRODUCTION ECRITE -->
+        <section id="tab-evaluation" class="space-y-6 tab-content hidden">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">🎯 Grille d'Auto-Évaluation de la Production Écrite</h2>
+            <p class="text-xs text-slate-300">Cochez les critères respectés dans votre brouillon avant de rédiger votre copie finale.</p>
+
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow space-y-4 text-xs">
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" class="critere-chk w-4 h-4 accent-amber-500" onchange="calculerNote()">
+                        <span><strong>Respect de la consigne et du format :</strong> Introduction, développement structuré et conclusion cohérente. (1 pt)</span>
+                    </label>
+                    <label class="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" class="critere-chk w-4 h-4 accent-amber-500" onchange="calculerNote()">
+                        <span><strong>Cohérence et cohésion :</strong> Utilisation correcte des connecteurs logiques et absence de contradictions. (2 pts)</span>
+                    </label>
+                    <label class="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" class="critere-chk w-4 h-4 accent-amber-500" onchange="calculerNote()">
+                        <span><strong>Correction de la langue :</strong> Orthographe grammaticale respectée, accords corrects (sujet-verbe, adjectifs). (2 pts)</span>
+                    </label>
+                    <label class="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" class="critere-chk w-4 h-4 accent-amber-500" onchange="calculerNote()">
+                        <span><strong>Richesse du vocabulaire :</strong> Utilisation du lexique thématique précis (pas de répétitions ni de mots en arabe). (1 pt)</span>
+                    </label>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 flex justify-between items-center">
+                    <span class="font-bold text-white text-sm">Estimation de votre note :</span>
+                    <span id="note-estimee" class="text-amber-400 font-extrabold text-lg">0 / 6</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET 7 : MES NOTES -->
+        <section id="tab-notes" class="space-y-6 tab-content hidden">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">📝 Bloc-Notes Personnel & Favoris</h2>
+            <p class="text-xs text-slate-300">Notez vos remarques personnelles ou les astuces de votre professeur.</p>
+
+            <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-4">
+                <textarea id="user-notes" placeholder="Écrivez vos notes de révision ici..." class="w-full h-40 bg-slate-900 text-slate-200 p-3 rounded-lg border border-slate-700 text-xs focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
+                <button onclick="sauvegarderNotes()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow">Sauvegarder mes notes</button>
+                <span id="save-status" class="text-emerald-400 text-xs font-semibold ml-3"></span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="bg-slate-850 border-t border-slate-800 mt-auto py-4 text-center text-xs text-slate-400">
+        <p>BAC Français Master Pro • Conçu par le Professeur <strong class="text-amber-300">ARAREM Boualem</strong> | <span class="text-white">Lycée 1er Novembre 1954 - LAGHOUAT</span></p>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Gestion des onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow');
+        }
+
+        // Gestion de la filière
+        function changerFiliere() {
+            const select = document.getElementById('filiere-select');
+            const val = select.value;
+            const nom = select.options[select.selectedIndex].text;
+            let coeff = "2", duree = "2h30";
+
+            if(val === 'lettres') { coeff = "3"; duree = "3h30"; }
+            else if(val === 'langues') { coeff = "5"; duree = "3h30"; }
+
+            document.getElementById('card-filiere-nom').innerText = nom.split('(')[0];
+            document.getElementById('card-filiere-coeff').innerText = coeff;
+            document.getElementById('card-filiere-duree').innerText = duree;
+        }
+
+        // Correction du Quiz
+        function corrigerQuiz() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+
+            if(q1 && q1.value === 'correct') score++;
+            if(q2 && q2.value === 'correct') score++;
+            if(q3 && q3.value === 'correct') score++;
+
+            document.getElementById('resultat-quiz').innerText = `Résultat : ${score} / 3 bonnes réponses.`;
+        }
+
+        // Calcul note auto-évaluation
+        function calculerNote() {
+            const checkboxes = document.querySelectorAll('.critere-chk');
+            let points = 0;
+            if(checkboxes[0].checked) points += 1;
+            if(checkboxes[1].checked) points += 2;
+            if(checkboxes[2].checked) points += 2;
+            if(checkboxes[3].checked) points += 1;
+            document.getElementById('note-estimee').innerText = `${points} / 6`;
+        }
+
+        // Sauvegarde Bloc-notes localStorage
+        function sauvegarderNotes() {
+            const txt = document.getElementById('user-notes').value;
+            localStorage.setItem('bac_notes_boualem', txt);
+            const status = document.getElementById('save-status');
+            status.innerText = "Enregistré avec succès !";
+            setTimeout(() => status.innerText = "", 2000);
+        }
+
+        window.onload = function() {
+            const saved = localStorage.getItem('bac_notes_boualem');
+            if(saved) document.getElementById('user-notes').value = saved;
+        }
+
+        function imprimerSection(id) {
+            window.print();
+        }
+    </script>
+</body>
+</html>
